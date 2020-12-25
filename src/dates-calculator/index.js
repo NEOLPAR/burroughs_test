@@ -1,10 +1,20 @@
 class DatesCalculator {
-  #hello;
+  name;
 
-  hello;
+  description;
 
-  constructor() {
-    this.#hello = 'hello';
+  #allowedDays;
+
+  #allowedMonths;
+
+  fallback;
+
+  constructor({ name, description, allowedDays, allowedMonths, fallback }) {
+    this.name = name;
+    this.description = description;
+    this.#allowedDays = allowedDays;
+    this.#allowedMonths = allowedMonths;
+    this.fallback = fallback;
   }
 }
 

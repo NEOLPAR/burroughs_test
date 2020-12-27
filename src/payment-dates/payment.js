@@ -63,7 +63,7 @@ class Payment {
       date.setDate(date.getDate() - ((date.getDay() + (7 - weekDay)) % 7));
     }
 
-    return date;
+    return new Date(date);
   }
 }
 

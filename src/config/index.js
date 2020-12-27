@@ -18,5 +18,13 @@ module.exports = {
       paymentDay: 15,
       fallback: '+3',
     },
+    {
+      name: 'christmas',
+      description: 'Last day of December. If weekend, Friday before.',
+      allowedDays: [1, 2, 3, 4, 5],
+      allowedMonths: [11],
+      paymentDay: 0,
+      fallback: '-5',
+    },
   ],
 };

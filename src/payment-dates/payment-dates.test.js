@@ -29,7 +29,14 @@ const mockedData = [
     fallback: '-5',
   },
 ];
-
+const christmas = {
+  name: 'christmas',
+  description: 'Last day of December. If weekend, Friday before.',
+  allowedDays: [1, 2, 3, 4, 5],
+  allowedMonths: [11],
+  paymentDay: 0,
+  fallback: '-5',
+};
 describe('payment dates object', () => {
   it('get months', () => {
     expect.hasAssertions();
@@ -226,6 +233,30 @@ describe('payment dates object', () => {
         ['30/04/2020', '15/04/2020'],
         ['29/05/2020', '15/05/2020'],
         ['30/06/2020', '15/06/2020'],
+      ];
+      expect(received).toStrictEqual(expected);
+    });
+
+    it('checking with null months', () => {
+      expect.hasAssertions();
+
+      const paymentDates = new PaymentDates(mockedData, months, timeZone);
+      paymentDates.addPayment(christmas);
+      const received = paymentDates.getPaymentDates(new Date(2019, 6, 29));
+      const expected = [
+        ['base', 'bonus', 'christmas'],
+        ['31/07/2019', '15/07/2019', null],
+        ['30/08/2019', '15/08/2019', null],
+        ['30/09/2019', '18/09/2019', null],
+        ['31/10/2019', '15/10/2019', null],
+        ['29/11/2019', '15/11/2019', null],
+        ['31/12/2019', '18/12/2019', '31/12/2019'],
+        ['31/01/2020', '15/01/2020', null],
+        ['28/02/2020', '19/02/2020', null],
+        ['31/03/2020', '18/03/2020', null],
+        ['30/04/2020', '15/04/2020', null],
+        ['29/05/2020', '15/05/2020', null],
+        ['30/06/2020', '15/06/2020', null],
       ];
       expect(received).toStrictEqual(expected);
     });

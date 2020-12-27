@@ -28,6 +28,52 @@ const mockedData = [
 ];
 
 describe('payment dates object', () => {
+  it('get months', () => {
+    expect.hasAssertions();
+
+    const paymentDates = new PaymentDates(mockedData, months, timeZone);
+
+    expect(paymentDates.getMonths()).toBe(months);
+  });
+
+  it('get timezone', () => {
+    expect.hasAssertions();
+
+    const paymentDates = new PaymentDates(mockedData, months, timeZone);
+
+    expect(paymentDates.getTimezone()).toBe(timeZone);
+  });
+
+  it('get payments', () => {
+    expect.hasAssertions();
+
+    const paymentDates = new PaymentDates(mockedData, months, timeZone);
+    const received = paymentDates.getPayments().map((itm) => itm.getName());
+    const expected = ['base', 'bonus'];
+
+    expect(received).toStrictEqual(expected);
+  });
+
+  it('get payments must be base', () => {
+    expect.hasAssertions();
+
+    const paymentDates = new PaymentDates(mockedData, months, timeZone);
+    const received = paymentDates.getPayment('base').map((itm) => itm.getName());
+    const expected = ['base'];
+
+    expect(received).toStrictEqual(expected);
+  });
+
+  it('get payments must be bonus', () => {
+    expect.hasAssertions();
+
+    const paymentDates = new PaymentDates(mockedData, months, timeZone);
+    const received = paymentDates.getPayment('bonus').map((itm) => itm.getName());
+    const expected = ['bonus'];
+
+    expect(received).toStrictEqual(expected);
+  });
+
   it('constructor array, no duplicated names', () => {
     expect.assertions(2);
 
@@ -135,5 +181,27 @@ describe('payment dates object', () => {
 
     expect(paymentDates.getPayments()).toHaveLength(1);
     expect(paymentDates.getPayment('base')).toHaveLength(0);
+  });
+
+  describe('get payment dates, array multidimensional, headers on first row', () => {
+    it('getting correct number of files', () => {
+      expect.hasAssertions();
+
+      const paymentDates = new PaymentDates(mockedData, months, timeZone);
+      const received = paymentDates.getPaymentDates().length;
+      const expected = 1 + months;
+
+      expect(received).toStrictEqual(expected);
+    });
+
+    it('checking headers', () => {
+      expect.hasAssertions();
+
+      const paymentDates = new PaymentDates(mockedData, months, timeZone);
+      const received = paymentDates.getPaymentDates()[0];
+      const expected = ['base', 'bonus'];
+
+      expect(received).toStrictEqual(expected);
+    });
   });
 });

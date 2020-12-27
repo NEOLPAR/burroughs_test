@@ -21,7 +21,7 @@ class Payment {
   }
 
   getName = () => this.#name;
-  
+
   getDescription = () => this.#description;
 
   getAllowedDays = () => this.#allowedDays;
@@ -37,11 +37,12 @@ class Payment {
                     && this.#allowedMonths === obj.getAllowedMonths()
                     && this.#fallback === obj.getFallback();
 
-  getPaymentDayByMonth(year, month) {
+  getPaymentDayByMonth(year, monthParam) {
+    let month = monthParam;
     if (this.#allowedMonths.indexOf(month) === -1) return null;
 
     const maxDayOfMonth = new Date(year, month + 1, 0);
-    if (this.#paymentDay === 0) month++;
+    if (this.#paymentDay === 0) month += 1;
 
     let paymentDate = new Date(year, month, this.#paymentDay);
 
@@ -54,8 +55,12 @@ class Payment {
     return paymentDate.getDate();
   }
 
+  getPaymentDate = (year, month) => (this.#allowedMonths.indexOf(month) !== -1
+    ? `${this.getPaymentDayByMonth(year, month)}/${(`0${month + 1}`).slice(-2)}/${year}`
+    : null);
+
   getFallbackDate = (date) => {
-    const weekDay = parseInt([...this.#fallback][1]);
+    const weekDay = parseInt([...this.#fallback][1], 10);
 
     if (this.#fallback.indexOf('+') !== -1) {
       date.setDate(date.getDate() + ((weekDay + 7 - date.getDay()) % 7));

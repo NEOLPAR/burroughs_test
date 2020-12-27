@@ -1,4 +1,5 @@
 module.exports = {
+  exportCsv: false,
   months: 12,
   timeZone: 'Europe/London',
   payments: [

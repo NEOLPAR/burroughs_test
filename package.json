@@ -1,6 +1,6 @@
 {
-  "name": "burroughs-test",
-  "version": "1.0.0",
+  "name": "burroughs-test-neolpar",
+  "version": "1.0.1",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -13,7 +13,8 @@
     "url": "git+https://github.com/NEOLPAR/burroughs_test.git"
   },
   "keywords": [
-    "burroughs"
+    "burroughs",
+    "neolpar"
   ],
   "author": "Ricardo Del Rio Rubial",
   "license": "ISC",

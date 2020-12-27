@@ -47,6 +47,7 @@ class PaymentDates {
         headers.add(paymentItm.getName());
 
         const paymentDate = paymentItm.getPaymentDate(payment.getFullYear(), payment.getMonth());
+
         paymentDatesMonth = [...paymentDatesMonth, paymentDate];
       });
 

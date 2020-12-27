@@ -26,7 +26,6 @@
     },
     "plugins": ["jest"],
     "rules": {
-        "allowForLoopAfterthoughts": true,
         "jest/no-disabled-tests": "warn",
         "jest/no-focused-tests": "error",
         "jest/no-identical-title": "error",
@@ -35,6 +34,7 @@
         "object-curly-newline": ["error", {
             "ObjectExpression": "always",
             "ObjectPattern": { "multiline": true }
-        }]
+        }],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
     }
 }

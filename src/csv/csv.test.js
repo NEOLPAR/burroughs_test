@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Csv = require('./index');
 const PaymentDates = require('../payment-dates/payment-dates');
 
@@ -33,21 +34,51 @@ describe('csv module', () => {
     expect.hasAssertions();
 
     const paymentDates = new PaymentDates(mockedData);
-    const received = Csv.getCsv(paymentDates.getPaymentDates());
+    const received = Csv.getCsv(paymentDates.getPaymentDates(new Date(2019, 6, 29)));
     const expected = `base,bonus,christmas
-31/12/2020,15/12/2020,31/12/2020
-29/01/2021,15/01/2021,""
-26/02/2021,15/02/2021,""
-31/03/2021,15/03/2021,""
-30/04/2021,15/04/2021,""
-31/05/2021,19/05/2021,""
-30/06/2021,15/06/2021,""
-30/07/2021,15/07/2021,""
-31/08/2021,18/08/2021,""
-30/09/2021,15/09/2021,""
-29/10/2021,15/10/2021,""
-30/11/2021,15/11/2021,""
+31/07/2019,15/07/2019,""
+30/08/2019,15/08/2019,""
+30/09/2019,18/09/2019,""
+31/10/2019,15/10/2019,""
+29/11/2019,15/11/2019,""
+31/12/2019,18/12/2019,31/12/2019
+31/01/2020,15/01/2020,""
+28/02/2020,19/02/2020,""
+31/03/2020,18/03/2020,""
+30/04/2020,15/04/2020,""
+29/05/2020,15/05/2020,""
+30/06/2020,15/06/2020,""
 `;
     expect(received).toStrictEqual(expected);
+  });
+
+  it('generate and export', async () => {
+    expect.hasAssertions();
+
+    const readFile = async (filePath) => new Promise((resolve, reject) => {
+      fs.readFile(filePath, (err, data) => {
+        if (err) reject(err);
+
+        resolve(data.toString('utf8'));
+      });
+    });
+    const paymentDates = new PaymentDates(mockedData);
+    const filePath = await Csv.exportCsv(paymentDates.getPaymentDates(new Date(2019, 6, 29)));
+    const expected = `base,bonus,christmas
+31/07/2019,15/07/2019,""
+30/08/2019,15/08/2019,""
+30/09/2019,18/09/2019,""
+31/10/2019,15/10/2019,""
+29/11/2019,15/11/2019,""
+31/12/2019,18/12/2019,31/12/2019
+31/01/2020,15/01/2020,""
+28/02/2020,19/02/2020,""
+31/03/2020,18/03/2020,""
+30/04/2020,15/04/2020,""
+29/05/2020,15/05/2020,""
+30/06/2020,15/06/2020,""
+`;
+    await expect(readFile(filePath)).resolves.toBe(expected);
+    await fs.unlinkSync(filePath);
   });
 });

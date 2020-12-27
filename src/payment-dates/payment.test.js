@@ -1,5 +1,3 @@
-const { TestScheduler } = require('jest');
-const { timeZone } = require('../config');
 const Payment = require('./payment');
 
 const mockedData = [
@@ -132,24 +130,21 @@ describe('payment object', () => {
   });
 
   describe('payment dates', () => {
-    expect.assertions(1);
     const [baseObj, bonusObj, christmas] = setupPayment();
     const today = new Date();
 
     describe('base object', () => {
-      expect.hasAssertions();
-      
       const getMonthDate = (year = today.getFullYear(), month = today.getMonth()) => {
         const newDate = new Date(year, month + 1, 0);
-  
+
         // If last day of the month is allowed day, expect it.
         // If last day of the month is not allowed day, get previous Friday
-        return baseObj.getAllowedDays().indexOf(newDate.getDay()) !== -1 ?
-          newDate :
-          new Date(newDate.setDate(newDate.getDate() - ((newDate.getDay() + (7 - 5)) % 7)));
-      }
+        return baseObj.getAllowedDays().indexOf(newDate.getDay()) !== -1
+          ? newDate
+          : new Date(newDate.setDate(newDate.getDate() - ((newDate.getDay() + (7 - 5)) % 7)));
+      };
 
-      it('current month', () => {
+      it('correct day for current month', () => {
         expect.hasAssertions();
 
         const received = baseObj.getPaymentDayByMonth(today.getFullYear(), today.getMonth());
@@ -158,49 +153,68 @@ describe('payment object', () => {
         expect(received).toBe(expected.getDate());
       });
 
-      describe('checking edges', () => {
+      it('correct date for current month', () => {
         expect.hasAssertions();
-  
-        const lastDayCurrentMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+        const received = baseObj.getPaymentDate(today.getFullYear(), today.getMonth());
+        const expected = `${getMonthDate().getDate()}/${(`0${getMonthDate().getMonth() + 1}`).slice(-2)}/${getMonthDate().getFullYear()}`;
+
+        expect(received).toBe(expected);
+      });
+
+      describe('checking edges', () => {
+        const lastDayCurrentMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         it('check the previous Friday for each day of the current month', () => {
-          expect.assertions(lastDayCurrentMonth);
-  
-          for (let i = 1; i <= lastDayCurrentMonth; i++) {
+          // eslint-disable-next-line jest/prefer-expect-assertions
+          expect.assertions(lastDayCurrentMonth.getDate());
+
+          for (let i = 1, len = lastDayCurrentMonth.getDate(); i <= len; i++) {
             const newDate = new Date(today.getFullYear(), today.getMonth(), i);
             const received = baseObj.getFallbackDate(newDate);
-  
+
             // Get the last Friday
-            let expected = new Date(newDate.setDate(newDate.getDate() - ((newDate.getDay() + (7 - 5)) % 7)));
-            
+            // eslint-disable-next-line max-len
+            const expected = new Date(newDate.setDate(newDate.getDate() - ((newDate.getDay() + (7 - 5)) % 7)));
+
             expect(received.getDate()).toBe(expected.getDate());
           }
         });
 
         it('all 2020 months', () => {
           expect.assertions(12);
-  
+
           for (let i = 0; i <= 11; i++) {
             const received = baseObj.getPaymentDayByMonth(2020, i);
-            const expected = getMonthDate(2020, i);          
-          
+            const expected = getMonthDate(2020, i);
+
             expect(received).toBe(expected.getDate());
+          }
+        });
+
+        it('correct date format for 2020 months', () => {
+          expect.assertions(12);
+
+          for (let i = 0; i <= 11; i++) {
+            const received = baseObj.getPaymentDate(2020, i);
+            const checkDate = getMonthDate(2020, i);
+            const expected = `${checkDate.getDate()}/${(`0${checkDate.getMonth() + 1}`).slice(-2)}/${checkDate.getFullYear()}`;
+
+            expect(received).toBe(expected);
           }
         });
       });
     });
 
     describe('bonus object', () => {
-      expect.hasAssertions();
-      
       const getMonthDate = (year = today.getFullYear(), month = today.getMonth()) => {
         const newDate = new Date(year, month, 15);
-  
+
         // If 15th day of the month is allowed day, expect it.
         // If 15th day of the month is not allowed day, get next Wednesday
-        return bonusObj.getAllowedDays().indexOf(newDate.getDay()) !== -1 ?
-          newDate :
-          new Date(newDate.setDate(newDate.getDate() + ((3 + 7 - newDate.getDay()) % 7)));
-      }
+        return bonusObj.getAllowedDays().indexOf(newDate.getDay()) !== -1
+          ? newDate
+          : new Date(newDate.setDate(newDate.getDate() + ((3 + 7 - newDate.getDay()) % 7)));
+      };
 
       it('current month', () => {
         expect.hasAssertions();
@@ -212,19 +226,19 @@ describe('payment object', () => {
       });
 
       describe('checking edges', () => {
-        expect.hasAssertions();
-        
-        const lastDayCurrentMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+        const lastDayCurrentMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         it('check the next Wednesday for each day of the current month', () => {
-          expect.assertions(lastDayCurrentMonth);
+          // eslint-disable-next-line jest/prefer-expect-assertions
+          expect.assertions(lastDayCurrentMonth.getDate());
 
-          for (let i = 1; i <= lastDayCurrentMonth; i++) {
+          for (let i = 1, len = lastDayCurrentMonth.getDate(); i <= len; i++) {
             const newDate = new Date(today.getFullYear(), today.getMonth(), i);
             const received = bonusObj.getFallbackDate(newDate);
 
             // Get the next Wednesday
-            let expected = new Date(newDate.setDate(newDate.getDate() + ((3 + 7 - newDate.getDay()) % 7)));
-            
+            // eslint-disable-next-line max-len
+            const expected = new Date(newDate.setDate(newDate.getDate() + ((3 + 7 - newDate.getDay()) % 7)));
+
             expect(received.getDate()).toBe(expected.getDate());
           }
         });
@@ -234,49 +248,75 @@ describe('payment object', () => {
 
           for (let i = 0; i <= 11; i++) {
             const received = bonusObj.getPaymentDayByMonth(2020, i);
-            const expected = getMonthDate(2020, i);          
-          
+            const expected = getMonthDate(2020, i);
+
             expect(received).toBe(expected.getDate());
+          }
+        });
+
+        it('correct date format for 2020 months', () => {
+          expect.assertions(12);
+
+          for (let i = 0; i <= 11; i++) {
+            const received = bonusObj.getPaymentDate(2020, i);
+            const checkDate = getMonthDate(2020, i);
+            const expected = `${checkDate.getDate()}/${(`0${checkDate.getMonth() + 1}`).slice(-2)}/${checkDate.getFullYear()}`;
+
+            expect(received).toBe(expected);
           }
         });
       });
     });
 
     describe('christmas object', () => {
-      expect.hasAssertions();
-      
       const getMonthDate = (year = today.getFullYear(), month = today.getMonth()) => {
+        if (month !== 11) return null;
+
         const newDate = new Date(year, month + 1, 0);
-  
+
         // If last day of the month is allowed day, expect it.
         // If last day of the month is not allowed day, get previous Friday
-        return christmas.getAllowedDays().indexOf(newDate.getDay()) !== -1 ?
-          newDate :
-          new Date(newDate.setDate(newDate.getDate() - ((newDate.getDay() + (7 - 5)) % 7)));
-      }
+        return christmas.getAllowedDays().indexOf(newDate.getDay()) !== -1
+          ? newDate.getDate()
+          // eslint-disable-next-line max-len
+          : new Date(newDate.setDate(newDate.getDate() - ((newDate.getDay() + (7 - 5)) % 7))).getDate();
+      };
+      const getFormattedMonthDate = (year = today.getFullYear(), month = today.getMonth()) => {
+        if (month !== 11) return null;
+
+        const checkDate = getMonthDate(year, month);
+        return `${checkDate}/${(`0${month + 1}`).slice(-2)}/${year}`;
+      };
 
       it('december 2020 must work', () => {
         expect.hasAssertions();
 
-        const december = new Date(2020,11,1);
-        const received = christmas.getPaymentDayByMonth(december.getFullYear(), december.getMonth());
+        const dec = new Date(2020, 11, 1);
+        const received = christmas.getPaymentDayByMonth(dec.getFullYear(), dec.getMonth());
         const expected = getMonthDate();
 
-        expect(received).toBe(expected.getDate(2020, 11));
+        expect(received).toBe(expected);
       });
 
-      
       it('check 2020 months all null but December', () => {
         expect.assertions(12);
 
         for (let month = 0; month <= 11; month++) {
           const received = christmas.getPaymentDayByMonth(2020, month);
-          const expected = month !== 11 ? null : getMonthDate(2020, month).getDate();          
+          const expected = getMonthDate(2020, month);
 
-          if (expected === null)
-            expect(received).toBeNull()
-          else
-            expect(received).toBe(expected);
+          expect(received).toBe(expected);
+        }
+      });
+
+      it('correct date format for 2020 months', () => {
+        expect.assertions(12);
+
+        for (let i = 0; i <= 11; i++) {
+          const received = christmas.getPaymentDate(2020, i);
+          const expected = getFormattedMonthDate(2020, i);
+
+          expect(received).toBe(expected);
         }
       });
     });

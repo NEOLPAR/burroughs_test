@@ -26,7 +26,8 @@ The utility should calculate the payment dates for the next 12 months, including
     2.  [Running it in the code](#thirdPartyPackageRunning)    
 6.  [Lint](#eslint)
 7.  [Possible upgrades](#upgrades)
-8.  [Acknowledgements](#acknowledgements)
+8.  [Known Issues](#knownIssues)
+9.  [Acknowledgements](#acknowledgements)
 <a name="quickOverview"></a>
 
 ## Quick Overview
@@ -211,6 +212,11 @@ console.log(paymentDates);
 - Changing rule payments name.
 - Looping after change one payment rule. In case you want to add or edit more than one rule.
 - Tests for setup module.
+<a name="knownIssues"></a>
+
+## Known Issues
+
+- Setup doesn't save the settings when it's used as third party package. Paths must be checked and set as absolute. A config file like `.burroughs-config` at the project lvl would be a great idea.
 <a name="acknowledgements"></a>
 
 ## Acknowledgements

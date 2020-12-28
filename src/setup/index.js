@@ -36,6 +36,11 @@ class setupApp {
     return !!pass || `Please enter a valid name, allowed characters a-z, up to ${max} characters`;
   };
 
+  static validateUnique = (value) =>
+    // eslint-disable-next-line implicit-arrow-linebreak
+    this.oldSettings.payments.filter((itm) => itm.name === value).length === 0
+    || 'This name is being used, please set a different name';
+
   static validatePaymentDay = (value) => {
     const valid = value === 'last' || value === 'first'
       || (!Number.isNaN(parseInt(value, 10)) && value >= 1 && value <= 31);
@@ -108,10 +113,11 @@ class setupApp {
       choices: [...this.getPaymentNames(), new inquirer.Separator(), 'Add new payment'],
     }];
     const answersFunction = async (answers) => {
-      const newPaymentRule = await this.addOrModifyPaymentRules(answers.listPayments);
+      const payment = answers.listPayments !== 'Add new payment' ? answers.listPayments : null;
+      const newPaymentRule = await this.addOrModifyPaymentRules(payment);
 
       this.newSettings.payments = [newPaymentRule,
-        ...this.oldSettings.payments.filter((itm) => itm.name !== answers.listPayments)];
+        ...this.oldSettings.payments.filter((itm) => itm.name !== payment)];
     };
 
     await this.newInquirer(questions, answersFunction);
@@ -160,7 +166,17 @@ class setupApp {
         name: 'name',
         message: 'Payment rule name?(max 10)',
         default: newPaymentRule.name || '',
-        validate: (value) => this.validateStrings(value, 10),
+        validate: (value) => {
+          const pass1 = this.validateStrings(value, 10);
+          const pass2 = this.validateUnique(value);
+          let pass = '';
+
+          if (pass1 !== true) pass += `${pass1}`;
+          if (pass2 !== true) pass += `${pass2}`;
+
+          return pass === '' ? true : pass;
+        },
+        when: () => choice === null,
       },
       {
         type: 'input',
@@ -183,7 +199,7 @@ class setupApp {
         name: 'paymentDay',
         message: 'Which day of the month is the payment day for this rule?(firs, last, 1-31)',
         default: newPaymentRule.paymentDay === 0 ? 'last'
-          : (newPaymentRule.paymentDay === 1 ? 'first' : newPaymentRule.paymentDay) || '',
+          : (newPaymentRule.paymentDay === 1 ? 'first' : newPaymentRule.paymentDay) || 'last',
         validate: this.validatePaymentDay,
       },
       {
@@ -216,7 +232,7 @@ class setupApp {
       fallback += (this.weekDays.indexOf(answers.fallbackDay) + 1 + 7) % 7;
 
       newPaymentRule = {
-        name: answers.name,
+        name: answers.name || newPaymentRule.name,
         description: answers.description,
         paymentDay,
         allowedDays: this.getWeekDaysNumber(answers.allowedDays),
@@ -230,14 +246,17 @@ class setupApp {
     return this.newInquirer(questions, answersFunction);
   }
 
+  // eslint-disable-next-line consistent-return
   static saveConfigFile = async () => {
     const fileContent = `module.exports = ${JSON.stringify(this.newSettings)};`;
 
     try {
-      return fs.writeFile('./src/config/index.js', fileContent, (err) => err);
+      fs.writeFile('./src/config/index.js', fileContent, (err) => err);
     } catch (err) {
       return err;
     }
+
+    console.log('\nAll the settings has been saved.\n');
   };
 
   static newInquirer = (questions, answersFunction) => inquirer

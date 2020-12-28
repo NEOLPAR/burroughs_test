@@ -24,8 +24,9 @@ The utility should calculate the payment dates for the next 12 months, including
 5.  [Lint](#lint)
 6.  [Possible upgrades](#upgrades)
 7.  [Acknowledgements](#acknowledgements)
+<a name="quickOverview"></a>
 
-## Quick Overview<a name="quickOverview"></a>
+## Quick Overview
 
 #### Install
 
@@ -64,12 +65,14 @@ npm run test-watch
 npm run lint
 ```
 <a name="gettingStarted"></a>
+
 ## Getting Started
 
 **You’ll need to have Node 12.18.3 or later version on your local development machine.** We recommend using the latest LTS version. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to switch Node versions between different projects.
 
 Please follow the instructions to install and run this app and their choices.
 <a name="installing"></a>
+
 ### Installing
 
 First we need to clone the project from Github, we'll install it in a folder called `burroughs-test-neolpar` or a different name at your choice.
@@ -85,6 +88,7 @@ cd burroughs-test-neolpar
 npm install
 ```
 <a name="running"></a>
+
 ### Running the app
 
 Now we are ready to start using this app with the following command
@@ -95,6 +99,7 @@ npm start
 
 Please continue reading if you would like to change the project defaults or payment rules, run test or run lint.
 <a name="setup"></a>
+
 ## Setup your application
 
 If you would like to change the default settings, please execute the following command:
@@ -107,12 +112,14 @@ This command will run a wizard to configure all the general settings and will gi
 
 Through the wizard we'll configure the following settings: 
 <a name="setupGeneral"></a>
+
 ### General settings
 
 - **Months**: (Number) Default: 12. Number between 1 and 24. This will change the months that we want to show when we run the app.
 - **Export to CSV**: (Boolean) Default: false. This will export a CSV file when we run the app. It will create an `export` folder and will create the files there with the names as the following format `YYYY-MM-ddTHH.mm.ss.csv`.
 - **Add or edit payment rules**: (Boolean) Default: false. We can change just the general settings without changing any payment rule, so the wizard won't go further on the setup and will save the settings.
 <a name="setupPayments"></a>
+
 ### Adding or editing payment rules
 
 - **Name**: (String) Unique. String of `a to z` characters up to 10 of lenght. This option will just be shown if we are adding a new payment rule.
@@ -122,46 +129,52 @@ Through the wizard we'll configure the following settings:
 - **Allowed week days**: (Checkbox) At least one selected. Week days allowed to process the payment.
 - **Previous or next week**<a name="fallbackSign"></a>: (List) This is when you want to process the payment in case it falls in a not allowed week day. This works with [Week day fallback](#fallbackWeekDay).
 - **Week day fallback**<a name="fallbackWeekDay"></a>: (List) This is the week day when you want to process the payment in case it falls in a not allowed week day. This works with [Previous or next week](#fallbackSign).
+<a name="tests"></a>
 
 ## Tests
-<a name="tests"></a>
+
 **Unit test** are written in (Jest)[#acknowledgements]. Please add a unit test for every new feature or bug fix. 
+<a name="testsRun"></a>
 
 ### Running the test suite
-<a name="testsRun"></a>
+
 Perform a single pass of the test suite:
 
 ```sh
 npm test
 ```
+<a name="testsWatcher"></a>
 
 ### Test watcher
-<a name="testsWatcher"></a>
+
 During development we can use jest test watcher. Run the watcher with the following command:
 
 ```sh
 npm run test-watch
 ```
+<a name="lint"></a>
 
 ## Lint
-<a name="lint"></a>
+
 This application has been developer using (ESLint)[#Acknowledgements]. You can run the lint checks with the following command: 
 
 ```sh
 npm run lint
 ```
+<a name="upgrades"></a>
 
 ## Possible upgrades
-<a name="upgrades"></a>
+
 - Choice to remove an existing payment rule.
 - Export CSV files with a path and filename of your choice.
 - Working with Timezones.
 - Changing rule payments name.
 - Looping after change one payment rule. In case you want to add or edit more than one rule.
 - Tests for setup module.
+<a name="acknowledgements"></a>
 
 ## Acknowledgements
-<a name="acknowledgements"></a>
+
 I have used some third party projects and I am really grateful to the authors and communities behin them:
 - [@babel](https://github.com/babel)
 - [@jest](https://github.com/facebook/jest)

@@ -4,6 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "install": "npm install && npm start --setup",
+    "start": "node ./src/index.js",
     "test": "npx jest ./src/",
     "test-watch": "npx jest ./src/ --watch",
     "lint": "eslint ./src/"

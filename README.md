@@ -148,7 +148,7 @@ Through the wizard we'll configure the following settings:
 
 ## Tests
 
-**Unit test** are written in (Jest)[#acknowledgements]. Please add a unit test for every new feature or bug fix. 
+**Unit test** are written in [Jest](#acknowledgements). Please add a unit test for every new feature or bug fix. 
 <a name="testsRun"></a>
 
 ### Running the test suite
@@ -171,7 +171,7 @@ npm run test-watch
 
 ## Lint
 
-This application has been developer using (ESLint)[#Acknowledgements]. You can run the lint checks with the following command: 
+This application has been developer using [ESLint](#Acknowledgements). You can run the lint checks with the following command: 
 
 ```sh
 npm run lint
@@ -185,7 +185,7 @@ This app can be installed as a package of a bigger application. We need to follo
 
 ### Install the package
 
-This package is on (npmjs.com)[https://www.npmjs.com/]. So, we can install it as any node dependency.
+This package is on [npmjs.com](https://www.npmjs.com/). So, we can install it as any node dependency.
 
 ```sh
 npm install --save 'burroughs-test-neolpar'

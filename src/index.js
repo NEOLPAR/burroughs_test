@@ -11,6 +11,7 @@ if (args.indexOf('--setup') !== -1) {
   const paymentDates = new PaymentDates(config.payments, config.monthsInAdvance, config.timeZone);
   const paymentDatesArr = paymentDates.getPaymentDates();
 
+  // eslint-disable-next-line no-console
   console.log(Csv.getCsv(paymentDatesArr));
 
   if (config.exportCsv) {

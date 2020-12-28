@@ -256,6 +256,7 @@ class setupApp {
       return err;
     }
 
+    // eslint-disable-next-line no-console
     console.log('\nAll the settings has been saved.\n');
   };
 

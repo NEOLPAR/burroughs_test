@@ -21,9 +21,12 @@ The utility should calculate the payment dates for the next 12 months, including
 4.  [Tests](#unitarytests)
     1.  [Running the test suite](#testsRun)
     2.  [Test Watcher](#testsWatcher)
-5.  [Lint](#eslint)
-6.  [Possible upgrades](#upgrades)
-7.  [Acknowledgements](#acknowledgements)
+5.  [Running it as third party pakage](#thirdPartyPackage)
+    1.  [Install the package](#thirdPartyPackageInstall)
+    2.  [Running it in the code](#thirdPartyPackageRunning)    
+6.  [Lint](#eslint)
+7.  [Possible upgrades](#upgrades)
+8.  [Acknowledgements](#acknowledgements)
 <a name="quickOverview"></a>
 
 ## Quick Overview
@@ -63,6 +66,18 @@ npm run test-watch
 
 ```sh
 npm run lint
+```
+
+#### As third party pakage
+
+```sh
+npm install --save 'burroughs-test-neolpar'
+```
+
+```javascript
+const paymentDates = require('burroughs-test-neolpar');
+
+console.log(paymentDates);
 ```
 <a name="gettingStarted"></a>
 
@@ -160,6 +175,31 @@ This application has been developer using (ESLint)[#Acknowledgements]. You can r
 
 ```sh
 npm run lint
+```
+<a name="thirdPartyPackage"></a>
+
+## Running it as third party pakage
+
+This app can be installed as a package of a bigger application. We need to follow the next steps: 
+<a name="thirdPartyPackageInstall"></a>
+
+### Install the package
+
+This package is on (npmjs.com)[https://www.npmjs.com/]. So, we can install it as any node dependency.
+
+```sh
+npm install --save 'burroughs-test-neolpar'
+```
+<a name="thirdPartyPackageRunning"></a>
+
+### Running it in the code
+
+We need to import the package to our code, and that's all! We will get an string with the default CSV output and the default payment rules.
+
+```javascript
+const paymentDates = require('burroughs-test-neolpar');
+
+console.log(paymentDates);
 ```
 <a name="upgrades"></a>
 

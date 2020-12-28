@@ -69,7 +69,7 @@ npm run test-watch
 npm run lint
 ```
 
-#### As third party pakage
+#### As third party package
 
 ```sh
 npm install --save 'burroughs-test-neolpar'
@@ -97,7 +97,7 @@ First, we need to clone the project from Github, we'll install it in a folder ca
 git clone https://github.com/NEOLPAR/burroughs_test.git burroughs-test-neolpar
 ```
 
-After cloning the app we move to the app directory and install the dependencies.
+After cloning the app, we move to the app directory and install the dependencies.
 
 ```sh
 cd burroughs-test-neolpar
@@ -113,7 +113,7 @@ Now we are ready to start using this app with the following command
 npm start
 ```
 
-Please continue reading if you would like to change the project defaults or payment rules, run test or run lint.
+Please continue reading if you would like to change the project defaults or payment rules, run test, or run lint.
 <a name="setupApp"></a>
 
 ## Setup your application
@@ -195,7 +195,7 @@ npm install --save 'burroughs-test-neolpar'
 
 ### Running it in the code
 
-We need to import the package to our code, and that's all! We will get an string with the default CSV output and the default payment rules.
+We need to import the package to our code, and that's all! We will get a string with the default CSV output and the default payment rules.
 
 ```javascript
 const paymentDates = require('burroughs-test-neolpar');

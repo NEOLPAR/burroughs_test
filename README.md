@@ -21,7 +21,7 @@ The utility should calculate the payment dates for the next 12 months, including
 4.  [Tests](#unitarytests)
     1.  [Running the test suite](#testsRun)
     2.  [Test Watcher](#testsWatcher)
-5.  [Running it as third party pakage](#thirdPartyPackage)
+5.  [Running it as third party package](#thirdPartyPackage)
     1.  [Install the package](#thirdPartyPackageInstall)
     2.  [Running it in the code](#thirdPartyPackageRunning)    
 6.  [Lint](#eslint)
@@ -91,7 +91,7 @@ Please follow the instructions to install and run this app and their choices.
 
 ### Installing
 
-First we need to clone the project from Github, we'll install it in a folder called `burroughs-test-neolpar` or a different name at your choice.
+First, we need to clone the project from Github, we'll install it in a folder called `burroughs-test-neolpar` or a different name at your choice.
 
 ```sh
 git clone https://github.com/NEOLPAR/burroughs_test.git burroughs-test-neolpar
@@ -138,13 +138,13 @@ Through the wizard we'll configure the following settings:
 
 ### Adding or editing payment rules
 
-- **Name**: (String) Unique. String of `a to z` characters up to 10 of lenght. This option will just be shown if we are adding a new payment rule.
-- **Description** (String) String of `a to z` characters up to 100 of lenght. This is a description of the payment rule.
+- **Name**: (String) Unique. String of `a to z` characters up to 10 of length. This option will just be shown if we are adding a new payment rule.
+- **Description** (String) String of `a to z` characters up to 100 of length. This is a description of the payment rule.
 - **Allowed months**: (Checkbox) At least one month selected. Months where the rule will be applied.
 - **Payment day**: (String) Allowed 'last', 'first', Number between 1 and 31. The day of the month when this rule will be process.
-- **Allowed week days**: (Checkbox) At least one selected. Week days allowed to process the payment.
-- **Previous or next week**<a name="fallbackSign"></a>: (List) This is when you want to process the payment in case it falls in a not allowed week day. This works with [Week day fallback](#fallbackWeekDay).
-- **Week day fallback**<a name="fallbackWeekDay"></a>: (List) This is the week day when you want to process the payment in case it falls in a not allowed week day. This works with [Previous or next week](#fallbackSign).
+- **Allowed weekdays**: (Checkbox) At least one selected. Weekdays allowed to process the payment.
+- **Previous or next week**<a name="fallbackSign"></a>: (List) This is when you want to process the payment in case it falls in a not allowed weekday. This works with [Weekday fallback](#fallbackWeekDay).
+- **Weekday fallback**<a name="fallbackWeekDay"></a>: (List) This is the weekday when you want to process the payment in case it falls in a not allowed weekday. This works with [Previous or next week](#fallbackSign).
 <a name="unitarytests"></a>
 
 ## Tests
@@ -179,7 +179,7 @@ npm run lint
 ```
 <a name="thirdPartyPackage"></a>
 
-## Running it as third party pakage
+## Running it as third party package
 
 This app can be installed as a package of a bigger application. We need to follow the next steps: 
 <a name="thirdPartyPackageInstall"></a>
@@ -208,7 +208,7 @@ console.log(paymentDates);
 
 - Choice to remove an existing payment rule.
 - Export CSV files with a path and filename of your choice.
-- Working with Timezones.
+- Working with Time zones.
 - Changing rule payments name.
 - Looping after change one payment rule. In case you want to add or edit more than one rule.
 - Tests for setup module.
@@ -221,7 +221,7 @@ console.log(paymentDates);
 
 ## Acknowledgements
 
-I have used some third party projects and I am really grateful to the authors and communities behin them:
+I have used some third party projects and I am really grateful to the authors and communities behind them:
 - [@babel](https://github.com/babel)
 - [@jest](https://github.com/facebook/jest)
 - [@jest-community](https://github.com/jest-community)

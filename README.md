@@ -15,13 +15,13 @@ The utility should calculate the payment dates for the next 12 months, including
 2.  [Getting Started](#gettingStarted)
     1.  [Installing](#installing)
     2.  [Running the app](#running)
-3.  [Setup your application](#setup)
+3.  [Setup your application](#setupApp)
     1.  [General settings](#setupGeneral)
     2.  [Adding or editing payment rules](#setupPayments)
-4.  [Tests](#tests)
+4.  [Tests](#unitarytests)
     1.  [Running the test suite](#testsRun)
     2.  [Test Watcher](#testsWatcher)
-5.  [Lint](#lint)
+5.  [Lint](#eslint)
 6.  [Possible upgrades](#upgrades)
 7.  [Acknowledgements](#acknowledgements)
 <a name="quickOverview"></a>
@@ -98,7 +98,7 @@ npm start
 ```
 
 Please continue reading if you would like to change the project defaults or payment rules, run test or run lint.
-<a name="setup"></a>
+<a name="setupApp"></a>
 
 ## Setup your application
 
@@ -129,7 +129,7 @@ Through the wizard we'll configure the following settings:
 - **Allowed week days**: (Checkbox) At least one selected. Week days allowed to process the payment.
 - **Previous or next week**<a name="fallbackSign"></a>: (List) This is when you want to process the payment in case it falls in a not allowed week day. This works with [Week day fallback](#fallbackWeekDay).
 - **Week day fallback**<a name="fallbackWeekDay"></a>: (List) This is the week day when you want to process the payment in case it falls in a not allowed week day. This works with [Previous or next week](#fallbackSign).
-<a name="tests"></a>
+<a name="unitarytests"></a>
 
 ## Tests
 
@@ -152,7 +152,7 @@ During development we can use jest test watcher. Run the watcher with the follow
 ```sh
 npm run test-watch
 ```
-<a name="lint"></a>
+<a name="eslint"></a>
 
 ## Lint
 

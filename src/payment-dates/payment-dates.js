@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const Payment = require('./payment');
 
 class PaymentDates {
@@ -8,7 +9,7 @@ class PaymentDates {
   #paymentsArr = [];
 
   constructor(obj, months = 12, timezone = 'Europe/London') {
-    this.#months = months;
+    this.#months = months >= 24 ? 24 : months;
     this.#timezone = timezone;
 
     if (Array.isArray(obj)) {
@@ -34,29 +35,32 @@ class PaymentDates {
 
   getPayments = () => this.#paymentsArr;
 
-  getPaymentDates = (today = new Date()) => {
-    let currentDate = new Date(today.getFullYear(), today.getMonth(), 1);
-    const headers = new Set();
-    let paymentDates = [];
+  getPaymentDates = (
+    month = new Date(),
+    headers = new Set(),
+    paymentDates = [],
+    iteration = 0
+  ) => {
+    if (iteration >= this.#months) return [Array.from(headers), ...paymentDates];
 
-    for (let i = 0, len = this.#months; i < len; i++) {
-      const payment = currentDate;
-      let paymentDatesMonth = [];
+    const firstDayOfMonth = new Date(month.getFullYear(), month.getMonth(), 1);
 
-      this.#paymentsArr.forEach((paymentItm) => {
-        headers.add(paymentItm.getName());
+    let paymentsThisMonth = [];
+    this.#paymentsArr.forEach((paymentItm) => {
+      headers.add(paymentItm.getName());
 
-        const paymentDate = paymentItm.getPaymentDate(payment.getFullYear(), payment.getMonth());
+      paymentsThisMonth = [
+        ...paymentsThisMonth,
+        paymentItm.getPaymentDate(firstDayOfMonth.getFullYear(), firstDayOfMonth.getMonth())
+      ];
+    });
 
-        paymentDatesMonth = [...paymentDatesMonth, paymentDate];
-      });
-
-      paymentDates = [...paymentDates, paymentDatesMonth];
-
-      currentDate = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
-    }
-
-    return [Array.from(headers), ...paymentDates];
+    return this.getPaymentDates(
+      new Date(firstDayOfMonth.setMonth(firstDayOfMonth.getMonth() + 1)),
+      headers,
+      [...paymentDates, paymentsThisMonth],
+      iteration + 1
+    );
   };
 
   getMonths = () => this.#months;

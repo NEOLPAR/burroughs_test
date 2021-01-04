@@ -93,13 +93,14 @@ Please follow the instructions to install and run this app and their choices.
 ### Assumptions
 
 1.  This could be processed by some application which will process the payments, so I assumed that the full date was needed. 
-My first approach was to set a month and a year columns, however it would need to be processed. So, I decided to not adding those columns and just add a full date in 'Europe/London' time zone format. Adding compatibility for other time zones is a possible upgrade for this application.
+
+    My first approach was to set a month and a year columns, however it would need to be processed. So, I decided to not adding those columns and just add a full date in 'Europe/London' time zone format. Adding compatibility for other time zones is a possible upgrade for this application.
 
 2.  This could be processed by some application which will process the payments, so I didn't add any extra user information like greetings or application header. This is just returning the CSV text.
 
 3.  Since ES2015, JavaScript has TCO (Tail Recursion Optimization). Recursivity was improved, although it has an issue for large iterations where the recursive function hit the call stack size limit and throws an error. Ref: https://www.c-sharpcorner.com/blogs/performance-of-recursion-vs-loop-using-javascript
 
-On this application, 24 is the max. permitted iteration. So, we'll never hit the limit. For this reason, I decided to change [`getPaymentDates`](https://github.com/NEOLPAR/burroughs_test/blob/9906627b4ad1e25f65b1479270bd9e8110751881/src/payment-dates/payment-dates.js#L37) function to recursive, gaining some performance with it.
+    On this application, 24 is the max. permitted iteration. So, we'll never hit the limit. For this reason, I decided to change [`getPaymentDates`](https://github.com/NEOLPAR/burroughs_test/blob/9906627b4ad1e25f65b1479270bd9e8110751881/src/payment-dates/payment-dates.js#L38) function to recursive, gaining some performance with it.
 <a name="installing"></a>
 
 ### Installing

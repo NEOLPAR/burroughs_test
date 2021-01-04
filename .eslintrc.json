@@ -35,6 +35,7 @@
             "ObjectExpression": "always",
             "ObjectPattern": { "multiline": true }
         }],
-        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "linebreak-style": false
     }
 }

@@ -13,8 +13,9 @@ The utility should calculate the payment dates for the next 12 months, including
 
 1.  [Quick Overview](#quickOverview)
 2.  [Getting Started](#gettingStarted)
-    1.  [Installing](#installing)
-    2.  [Running the app](#running)
+    1.  [Assumptions](#assumptions)
+    2.  [Installing](#installing)
+    3.  [Running the app](#running)
 3.  [Setup your application](#setupApp)
     1.  [General settings](#setupGeneral)
     2.  [Adding or editing payment rules](#setupPayments)
@@ -87,6 +88,18 @@ console.log(paymentDates);
 **You’ll need to have Node 12.18.3 or later version on your local development machine.** We recommend using the latest LTS version. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to switch Node versions between different projects.
 
 Please follow the instructions to install and run this app and their choices.
+<a name="assumptions"></a>
+
+### Assumptions
+
+1.  This could be processed by some application which will process the payments, so I assumed that the full date was needed. 
+My first approach was to set a month and a year columns, however it would need to be processed. So, I decided to not adding those columns and just add a full date in 'Europe/London' time zone format. Adding compatibility for other time zones is a possible upgrade for this application.
+
+2.  This could be processed by some application which will process the payments, so I didn't add any extra user information like greetings or application header. This is just returning the CSV text.
+
+3.  Since ES2015, JavaScript has TCO (Tail Recursion Optimization). Recursivity was improved, although it has an issue for large iterations where the recursive function hit the call stack size limit and throws an error. Ref: https://www.c-sharpcorner.com/blogs/performance-of-recursion-vs-loop-using-javascript
+
+On this application, 24 is the max. permitted iteration. So, we'll never hit the limit. For this reason, I decided to change [`getPaymentDates`](https://github.com/NEOLPAR/burroughs_test/blob/9906627b4ad1e25f65b1479270bd9e8110751881/src/payment-dates/payment-dates.js#L37) function to recursive, gaining some performance with it.
 <a name="installing"></a>
 
 ### Installing
@@ -208,7 +221,7 @@ console.log(paymentDates);
 
 - Choice to remove an existing payment rule.
 - Export CSV files with a path and filename of your choice.
-- Working with Time zones.
+- Compatibility with other time zones than 'Europe/London'.
 - Changing rule payments name.
 - Looping after change one payment rule. In case you want to add or edit more than one rule.
 - Tests for setup module.

@@ -293,7 +293,7 @@ describe('payment object', () => {
 
         const dec = new Date(2020, 11, 1);
         const received = christmas.getPaymentDayByMonth(dec.getFullYear(), dec.getMonth());
-        const expected = getMonthDate();
+        const expected = getMonthDate(2020, 11);
 
         expect(received).toBe(expected);
       });

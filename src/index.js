@@ -8,7 +8,7 @@ const args = process.argv.slice(2);
 if (args.indexOf('--setup') !== -1) {
   SetupApp.init(config);
 } else {
-  const paymentDates = new PaymentDates(config.payments, config.monthsInAdvance, config.timeZone);
+  const paymentDates = new PaymentDates(config.payments, config.months, config.timeZone);
   const paymentDatesArr = paymentDates.getPaymentDates();
 
   // eslint-disable-next-line no-console

@@ -100,7 +100,7 @@ Please follow the instructions to install and run this app and their choices.
 
 3.  Since ES2015, JavaScript has TCO (Tail Recursion Optimization). Recursivity was improved, although it has an issue for large iterations where the recursive function hit the call stack size limit and throws an error. Ref: https://www.c-sharpcorner.com/blogs/performance-of-recursion-vs-loop-using-javascript
 
-    On this application, 24 is the max. permitted iteration. So, we'll never hit the limit. For this reason, I decided to change [`getPaymentDates`](https://github.com/NEOLPAR/burroughs_test/blob/9906627b4ad1e25f65b1479270bd9e8110751881/src/payment-dates/payment-dates.js#L38) function to recursive, gaining some performance with it.
+    On this application, 24 is the max. permitted iteration. So, we'll never hit the limit. For this reason, I decided to change `getPaymentDates` function to recursive, gaining some performance with it. ([Old `getPaymentDates`](https://github.com/NEOLPAR/burroughs_test/blob/9906627b4ad1e25f65b1479270bd9e8110751881/src/payment-dates/payment-dates.js#L37))
 <a name="installing"></a>
 
 ### Installing
